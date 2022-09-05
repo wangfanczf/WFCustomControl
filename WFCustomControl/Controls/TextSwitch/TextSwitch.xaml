@@ -1,0 +1,61 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:local="clr-namespace:WFCustomControl">
+	<Style TargetType="{x:Type local:TextSwitch}">
+		<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+		<Setter Property="BorderThickness" Value="1"/>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type local:TextSwitch}">
+					<Border Width="52" Name="box" Height="22" BorderThickness="1" Background="#FFFFFF" CornerRadius="10" BorderBrush="#ACACAC" >
+						<Grid>
+							<Border x:Name="circle" Background="#ACACAC" Width="20" Height="20" CornerRadius="10" 
+									VerticalAlignment="Stretch" HorizontalAlignment="Left" Margin="-1,0,0,0">
+								<Border.RenderTransform>
+									<TranslateTransform X="1"/>
+								</Border.RenderTransform>
+							</Border>
+							<Label x:Name="label" Content="OFF" FontFamily="iconfont" FontSize="{TemplateBinding FontSize}" 
+								   Margin="6,3,0,3" Foreground="#ACACAC" Padding="0"
+								   HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+								<Label.RenderTransform>
+									<TranslateTransform X="17"></TranslateTransform>
+								</Label.RenderTransform>
+							</Label>
+						</Grid>
+					</Border>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsMouseOver" Value="True">
+							<Setter Property="Cursor" Value="Hand"/>
+						</Trigger>
+						<Trigger Property="IsChecked" Value="true">
+							<Setter Property="Background" TargetName="box" Value="#5FB878"/>
+							<Setter Property="Foreground" TargetName="label" Value="#FFFFFF"/>
+							<Setter Property="Background" TargetName="circle" Value="#FFFFFF"/>
+							<Setter Property="Content" TargetName="label" Value="On"/>
+							<Trigger.EnterActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="circle" Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)" To="31" Duration="00:00:0.2"/>
+										<DoubleAnimation Storyboard.TargetName="label" Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)" To="3" Duration="00:00:0.2"/>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.EnterActions>
+							<Trigger.ExitActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation Storyboard.TargetName="circle" Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)" To="1" Duration="00:00:0.2"/>
+										<DoubleAnimation Storyboard.TargetName="label" Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)" To="17" Duration="00:00:0.2"/>
+									</Storyboard>
+								</BeginStoryboard>
+							</Trigger.ExitActions>
+						</Trigger>
+						<Trigger Property="IsChecked" Value="False">
+							<Setter Property="Content" TargetName="label" Value="OFF"/>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+</ResourceDictionary>

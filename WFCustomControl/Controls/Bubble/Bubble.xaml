@@ -1,0 +1,143 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:WFCustomControl">
+	<local:PlacementConverter x:Key="PlacementConverter"/>
+
+	<Style TargetType="{x:Type local:Bubble}">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type local:Bubble}">
+					<Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+						<Popup AllowsTransparency="True" StaysOpen="False" PopupAnimation="Fade" 
+							   IsOpen="{Binding IsOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent},UpdateSourceTrigger=PropertyChanged}" 
+							   PlacementTarget="{Binding PlacementTarget,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent},UpdateSourceTrigger=PropertyChanged}"
+							   Placement="{Binding Placement,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent},UpdateSourceTrigger=PropertyChanged, Converter={StaticResource PlacementConverter}}" >
+							<Grid>
+								<Label Name="labelLeft" Background="{TemplateBinding Background}"
+								Content="{Binding Text,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent},UpdateSourceTrigger=PropertyChanged}">
+									<Label.Template>
+										<ControlTemplate TargetType="Label">
+											<Grid Name="grid" Margin="0,0,10,0" Background="{TemplateBinding Label.Background}">
+												<Border CornerRadius="4" BorderBrush="Black" BorderThickness="1" Padding="5">
+													<ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+												</Border>
+												<Path VerticalAlignment="Center" Margin="0,0,-8.5,0" Stroke="Black" StrokeThickness="0.5" Fill="{Binding ElementName=grid, Path=Background}" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right">
+													<Path.RenderTransform>
+														<TransformGroup>
+															<ScaleTransform/>
+															<SkewTransform/>
+															<RotateTransform Angle="180"/>
+															<TranslateTransform/>
+														</TransformGroup>
+													</Path.RenderTransform>
+													<Path.Data>
+														<PathGeometry Figures="M 10,0 L 10,0,0,5 L 0,5,10,10"/>
+													</Path.Data>
+												</Path>
+											</Grid>
+										</ControlTemplate>
+									</Label.Template>
+								</Label>
+								<Label Name="labelRight" Background="{TemplateBinding Background}"
+								Content="{Binding Text,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent},UpdateSourceTrigger=PropertyChanged}">
+									<Label.Template>
+										<ControlTemplate TargetType="Label">
+											<Grid Name="grid" Margin="10,0,0,0" Background="{TemplateBinding Label.Background}">
+												<Border CornerRadius="4" BorderBrush="Black" BorderThickness="1" Padding="5" >
+													<ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+												</Border>
+												<Path VerticalAlignment="Center" Margin="-8.5,0,0,0" Fill="{Binding ElementName=grid, Path=Background}" Stroke="Black" StrokeThickness="0.5" HorizontalAlignment="Left">
+													<Path.Data>
+														<PathGeometry Figures="M 10,0 L 10,0,0,5 L 0,5,10,10"/>
+													</Path.Data>
+												</Path>
+											</Grid>
+										</ControlTemplate>
+									</Label.Template>
+								</Label>
+								<Label Name="labelBottom" Background="{TemplateBinding Background}"
+								Content="{Binding Text,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent},UpdateSourceTrigger=PropertyChanged}">
+									<Label.Template>
+										<ControlTemplate TargetType="Label">
+											<Grid Name="grid" Margin="0,10,0,0" Background="{TemplateBinding Label.Background}">
+												<Border CornerRadius="4" BorderBrush="Black" BorderThickness="1" Padding="5">
+													<ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+												</Border>
+												<Path VerticalAlignment="Top" Margin="0,-8.5,0,0" Stroke="Black" StrokeThickness="0.5" Fill="{Binding ElementName=grid, Path=Background}" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center">
+													<Path.RenderTransform>
+														<TransformGroup>
+															<ScaleTransform/>
+															<SkewTransform/>
+															<RotateTransform Angle="90"/>
+															<TranslateTransform/>
+														</TransformGroup>
+													</Path.RenderTransform>
+													<Path.Data>
+														<PathGeometry Figures="M 10,0 L 10,0,0,5 L 0,5,10,10"/>
+													</Path.Data>
+												</Path>
+											</Grid>
+										</ControlTemplate>
+									</Label.Template>
+								</Label>
+								<Label Name="labelTop" Background="{TemplateBinding Background}"
+								Content="{Binding Text,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent},UpdateSourceTrigger=PropertyChanged}">
+									<Label.Template>
+										<ControlTemplate TargetType="Label">
+											<Grid Name="grid" Margin="0,0,0,10" Background="{TemplateBinding Label.Background}">
+												<Border CornerRadius="4" BorderBrush="Black" BorderThickness="1" Padding="5">
+													<ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+												</Border>
+												<Path VerticalAlignment="Bottom" Margin="0,0,0,-8.5" Stroke="Black" StrokeThickness="0.5" Fill="{Binding ElementName=grid, Path=Background}" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center">
+													<Path.RenderTransform>
+														<TransformGroup>
+															<ScaleTransform/>
+															<SkewTransform/>
+															<RotateTransform Angle="-90"/>
+															<TranslateTransform/>
+														</TransformGroup>
+													</Path.RenderTransform>
+													<Path.Data>
+														<PathGeometry Figures="M 10,0 L 10,0,0,5 L 0,5,10,10"/>
+													</Path.Data>
+												</Path>
+											</Grid>
+										</ControlTemplate>
+									</Label.Template>
+								</Label>
+							</Grid>
+						</Popup>
+					</Border>
+					<ControlTemplate.Triggers>
+						<Trigger Property="Placement" Value="Left">
+							<Setter TargetName="labelLeft" Property="Visibility" Value="Visible"></Setter>
+							<Setter TargetName="labelRight" Property="Visibility" Value="Collapsed"></Setter>
+							<Setter TargetName="labelBottom" Property="Visibility" Value="Collapsed"></Setter>
+							<Setter TargetName="labelTop" Property="Visibility" Value="Collapsed"></Setter>
+						</Trigger>
+						<Trigger Property="Placement" Value="Right">
+							<Setter TargetName="labelLeft" Property="Visibility" Value="Collapsed"></Setter>
+							<Setter TargetName="labelRight" Property="Visibility" Value="Visible"></Setter>
+							<Setter TargetName="labelBottom" Property="Visibility" Value="Collapsed"></Setter>
+							<Setter TargetName="labelTop" Property="Visibility" Value="Collapsed"></Setter>
+						</Trigger>
+						<Trigger Property="Placement" Value="Top">
+							<Setter TargetName="labelLeft" Property="Visibility" Value="Collapsed"></Setter>
+							<Setter TargetName="labelRight" Property="Visibility" Value="Collapsed"></Setter>
+							<Setter TargetName="labelBottom" Property="Visibility" Value="Collapsed"></Setter>
+							<Setter TargetName="labelTop" Property="Visibility" Value="Visible"></Setter>
+						</Trigger>
+						<Trigger Property="Placement" Value="Bottom">
+							<Setter TargetName="labelLeft" Property="Visibility" Value="Collapsed"></Setter>
+							<Setter TargetName="labelRight" Property="Visibility" Value="Collapsed"></Setter>
+							<Setter TargetName="labelBottom" Property="Visibility" Value="Visible"></Setter>
+							<Setter TargetName="labelTop" Property="Visibility" Value="Collapsed"></Setter>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+</ResourceDictionary>
